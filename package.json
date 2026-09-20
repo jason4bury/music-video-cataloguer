@@ -1,0 +1,19 @@
+{
+  "name": "music-video-cataloguer",
+  "version": "1.0.0",
+  "description": "Self-hosted cataloguer and viewer for a local music video collection",
+  "main": "server/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

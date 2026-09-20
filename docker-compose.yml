@@ -1,0 +1,25 @@
+services:
+  music-video-cataloguer:
+    image: jason4bury/music-video-cataloguer
+#    image: music-video-cataloguer
+    container_name: music-video-cataloguer
+    environment:
+      - SCAN_ON_START=true
+      # Rescan automatically every N minutes; set to 0 to disable
+      - SCAN_INTERVAL_MINUTES=${SCAN_INTERVAL_MINUTES}
+      # Login credentials, created on first start only. If AUTH_PASSWORD
+      # is left blank, a random one is generated and printed once to
+      # `docker compose logs` — check there if you forget it.
+      - AUTH_USERNAME=${AUTH_USERNAME}
+      - AUTH_PASSWORD=${AUTH_PASSWORD}
+      # Optional: pin this so sessions survive a container restart.
+      - SESSION_SECRET=${SESSION_SECRET}
+    volumes:
+      # Persists the SQLite database and generated thumbnails
+      - ${CONFIGS}/music-video-cataloguer:/data
+      # Point this at the folder that contains one subfolder per artist,
+      # e.g. /videos/Daft Punk/Daft Punk - Around the World.mp4
+      - ${LIBRARY_PATH}:/videos:ro
+    ports:
+      - ${APP_PORT}:3211
+    restart: unless-stopped
